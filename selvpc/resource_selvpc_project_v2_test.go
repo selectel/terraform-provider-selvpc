@@ -234,6 +234,7 @@ func TestResourceResellProjectV2QuotasOptsFromList(t *testing.T) {
 	}
 
 	actualQuotaOpts, err := resourceResellProjectV2QuotasOptsFromList(quotasList)
+
 	assert.Empty(t, err)
 	assert.Equal(t, expectedQuotasOpts, actualQuotaOpts)
 }
@@ -252,6 +253,7 @@ func TestResourceResellProjectV2QuotasOptsFromListNoName(t *testing.T) {
 	}
 
 	quotaOpts, err := resourceResellProjectV2QuotasOptsFromList(quotasList)
+
 	assert.Empty(t, quotaOpts)
 	assert.EqualError(t, err, "resource_name value isn't provided")
 }
@@ -264,6 +266,7 @@ func TestResourceResellProjectV2QuotasOptsFromListNoQuotas(t *testing.T) {
 	}
 
 	quotaOpts, err := resourceResellProjectV2QuotasOptsFromList(quotasList)
+
 	assert.Empty(t, quotaOpts)
 	assert.EqualError(t, err, "resource_quotas value isn't provided")
 }
@@ -293,5 +296,23 @@ func TestResourceResellProjectV2QuotasToMap(t *testing.T) {
 	}
 
 	actualQuotasMap := resourceResellProjectV2QuotasToMap(quotasOpts)
+
 	assert.Equal(t, expectedQuotasMap, actualQuotasMap)
+}
+
+func TestResourceProjectV2UpdateThemeOptsFromMap(t *testing.T) {
+	themeOptsMap := map[string]interface{}{
+		"color": "FF0000",
+		"logo":  "fake.png",
+	}
+	expectedColor := "FF0000"
+	expectedLogo := "fake.png"
+	expectedThemeUpdateOpts := &projects.ThemeUpdateOpts{
+		Color: &expectedColor,
+		Logo:  &expectedLogo,
+	}
+
+	actualThemeUpdateOpts := resourceProjectV2UpdateThemeOptsFromMap(themeOptsMap)
+
+	assert.Equal(t, expectedThemeUpdateOpts, actualThemeUpdateOpts)
 }
