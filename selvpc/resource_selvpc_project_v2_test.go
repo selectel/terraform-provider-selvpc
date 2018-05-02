@@ -9,6 +9,8 @@ import (
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
 	"github.com/selectel/go-selvpcclient/selvpcclient/resell/v2/projects"
+	"github.com/selectel/go-selvpcclient/selvpcclient/resell/v2/quotas"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestAccResellV2ProjectBasic(t *testing.T) {
@@ -202,4 +204,66 @@ resource "selvpc_project_v2" "project_tf_acc_test_1" {
     }
   ]
 }`, name)
+}
+
+func TestResourceResellProjectV2QuotasOptsFromList(t *testing.T) {
+	quotasList := []interface{}{
+		map[string]interface{}{
+			"resource_name": "volume_gigabytes_fast",
+			"resource_quotas": []interface{}{
+				map[string]interface{}{
+					"region": "ru-3",
+					"zone":   "ru-3a",
+					"value":  100,
+				},
+			},
+		},
+	}
+	expectedResourceQuotaValue := 100
+	expectedQuotasOpts := []quotas.QuotaOpts{
+		{
+			Name: "volume_gigabytes_fast",
+			ResourceQuotasOpts: []quotas.ResourceQuotaOpts{
+				{
+					Region: "ru-3",
+					Zone:   "ru-3a",
+					Value:  &expectedResourceQuotaValue,
+				},
+			},
+		},
+	}
+
+	actualQuotaOpts, err := resourceResellProjectV2QuotasOptsFromList(quotasList)
+	assert.Empty(t, err)
+	assert.Equal(t, expectedQuotasOpts, actualQuotaOpts)
+}
+
+func TestResourceResellProjectV2QuotasOptsFromListNoName(t *testing.T) {
+	quotasList := []interface{}{
+		map[string]interface{}{
+			"resource_quotas": []interface{}{
+				map[string]interface{}{
+					"region": "ru-3",
+					"zone":   "ru-3a",
+					"value":  100,
+				},
+			},
+		},
+	}
+
+	quotaOpts, err := resourceResellProjectV2QuotasOptsFromList(quotasList)
+	assert.Empty(t, quotaOpts)
+	assert.EqualError(t, err, "resource_name value isn't provided")
+}
+
+func TestResourceResellProjectV2QuotasOptsFromListNoQuotas(t *testing.T) {
+	quotasList := []interface{}{
+		map[string]interface{}{
+			"resource_name": "volume_gigabytes_fast",
+		},
+	}
+
+	quotaOpts, err := resourceResellProjectV2QuotasOptsFromList(quotasList)
+	assert.Empty(t, quotaOpts)
+	assert.EqualError(t, err, "resource_quotas value isn't provided")
 }
