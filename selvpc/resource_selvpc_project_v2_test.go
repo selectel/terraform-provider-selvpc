@@ -24,14 +24,14 @@ func TestAccResellV2ProjectBasic(t *testing.T) {
 		Providers:    testAccProviders,
 		CheckDestroy: testAccCheckResellV2ProjectDestroy,
 		Steps: []resource.TestStep{
-			resource.TestStep{
+			{
 				Config: testAccResellV2ProjectBasic(projectName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckResellV2ProjectExists("selvpc_project_v2.project_tf_acc_test_1", &project),
 					resource.TestCheckResourceAttr("selvpc_project_v2.project_tf_acc_test_1", "name", projectName),
 				),
 			},
-			resource.TestStep{
+			{
 				Config: testAccResellV2ProjectUpdate1(projectName, projectCustomURL),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
@@ -44,7 +44,7 @@ func TestAccResellV2ProjectBasic(t *testing.T) {
 						"selvpc_project_v2.project_tf_acc_test_1", "theme.logo", "fake.png"),
 				),
 			},
-			resource.TestStep{
+			{
 				Config: testAccResellV2ProjectUpdate2(projectName),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
@@ -55,7 +55,7 @@ func TestAccResellV2ProjectBasic(t *testing.T) {
 						"selvpc_project_v2.project_tf_acc_test_1", "theme.color", "FF0000"),
 				),
 			},
-			resource.TestStep{
+			{
 				Config: testAccResellV2ProjectUpdate3(projectNameUpdated),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr(
