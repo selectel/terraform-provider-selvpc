@@ -316,3 +316,13 @@ func TestResourceProjectV2UpdateThemeOptsFromMap(t *testing.T) {
 
 	assert.Equal(t, expectedThemeUpdateOpts, actualThemeUpdateOpts)
 }
+
+func TestResourceResellProjectV2URLWithoutSchema(t *testing.T) {
+	customURL := "https://my-url.selvpc.ru"
+	expectedURL := "my-url.selvpc.ru"
+
+	actualURL, err := resourceResellProjectV2URLWithoutSchema(customURL)
+
+	assert.Empty(t, err)
+	assert.Equal(t, expectedURL, actualURL)
+}
