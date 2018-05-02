@@ -38,7 +38,7 @@ importscheck:
 	@sh -c "'$(CURDIR)/scripts/goimportscheck.sh'"
 
 lintcheck:
-	@sh -c "'$(CURDIR)/scripts/lintcheck.sh'"
+	@sh -c "'$(CURDIR)/scripts/golintcheck.sh'"
 
 vendor-status:
 	@dep status
