@@ -267,3 +267,31 @@ func TestResourceResellProjectV2QuotasOptsFromListNoQuotas(t *testing.T) {
 	assert.Empty(t, quotaOpts)
 	assert.EqualError(t, err, "resource_quotas value isn't provided")
 }
+
+func TestResourceResellProjectV2QuotasToMap(t *testing.T) {
+	quotasOpts := []quotas.Quota{
+		{
+			Name: "compute_cores",
+			ResourceQuotasEntities: []quotas.ResourceQuotaEntity{
+				{
+					Region: "ru-2",
+					Value:  12,
+					Used:   2,
+				},
+			},
+		},
+	}
+	expectedQuotasMap := map[string]interface{}{
+		"compute_cores": []map[string]interface{}{
+			{
+				"region": "ru-2",
+				"zone":   "",
+				"value":  12,
+				"used":   2,
+			},
+		},
+	}
+
+	actualQuotasMap := resourceResellProjectV2QuotasToMap(quotasOpts)
+	assert.Equal(t, expectedQuotasMap, actualQuotasMap)
+}
