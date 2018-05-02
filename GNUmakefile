@@ -34,6 +34,9 @@ fmtcheck:
 errcheck:
 	@sh -c "'$(CURDIR)/scripts/errcheck.sh'"
 
+importscheck:
+	@sh -c "'$(CURDIR)/scripts/goimportscheck.sh'"
+
 lintcheck:
 	@sh -c "'$(CURDIR)/scripts/lintcheck.sh'"
 
