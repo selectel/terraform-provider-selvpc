@@ -35,7 +35,7 @@ errcheck:
 	@sh -c "'$(CURDIR)/scripts/errcheck.sh'"
 
 imports:
-	@goimports -w $(GOFMT_FILES)
+	goimports -w $(GOFMT_FILES)
 
 importscheck:
 	@sh -c "'$(CURDIR)/scripts/goimportscheck.sh'"
@@ -44,7 +44,7 @@ lintcheck:
 	@sh -c "'$(CURDIR)/scripts/golintcheck.sh'"
 
 vendor-status:
-	@dep status
+	dep status
 
 test-compile:
 	@if [ "$(TEST)" = "./..." ]; then \
