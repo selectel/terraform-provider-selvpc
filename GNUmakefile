@@ -34,6 +34,9 @@ fmtcheck:
 errcheck:
 	@sh -c "'$(CURDIR)/scripts/errcheck.sh'"
 
+imports:
+	@goimports -w $(GOFMT_FILES)
+
 importscheck:
 	@sh -c "'$(CURDIR)/scripts/goimportscheck.sh'"
 
