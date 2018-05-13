@@ -19,6 +19,7 @@ script:
   - make importscheck
   - make lintcheck
   - make vet
+  - make website-test
 
 branches:
   only:
