@@ -30,7 +30,7 @@ The following arguments are supported:
 * `region` - (Required) A region of where the license resides. Changing this
   creates a new license.
 
-* `type` - (Required) A type of the license. Changing this creates a new license.
+* `type` - (Required) The type of license. Changing this creates a new license.
 
 ## Attributes Reference
 
