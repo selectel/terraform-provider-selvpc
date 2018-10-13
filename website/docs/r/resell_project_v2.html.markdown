@@ -60,8 +60,8 @@ The following arguments are supported:
 
 * `name` - (Required) The name of the project.
 
-* `custom_url` - (Optional) The custom url for the project. Needs to be the 3d-level
-  domain for the `selvpc.ru`. Example: `terraform-project-001.selvpc.ru`.
+* `custom_url` - (Optional) The custom url for the project. Needs to be the
+  3rd-level domain for the `selvpc.ru`. Example: `terraform-project-001.selvpc.ru`.
 
 * `theme` - (Optional) An additional theme settings for this project. The structure is
   described below.
