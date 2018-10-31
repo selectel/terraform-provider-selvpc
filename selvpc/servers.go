@@ -1,7 +1,6 @@
 package selvpc
 
 import (
-	"bytes"
 	"fmt"
 
 	"github.com/hashicorp/terraform/helper/hashcode"
@@ -28,8 +27,6 @@ func serversMapsFromStructs(serverStructs []servers.Server) []map[string]interfa
 
 // hashServers is a hash function to use with the "servers" set.
 func hashServers(v interface{}) int {
-	var buf bytes.Buffer
 	m := v.(map[string]interface{})
-	buf.WriteString(fmt.Sprintf("%s-", m["id"].(string)))
-	return hashcode.String(buf.String())
+	return hashcode.String(fmt.Sprintf("%s-", m["id"].(string)))
 }

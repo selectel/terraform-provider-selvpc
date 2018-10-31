@@ -432,10 +432,8 @@ func resourceQuotasHashSetFunc() schema.SchemaSetFunc {
 
 // hashQuotas is a hash function to use with the "quotas" and "all_quotas" sets.
 func hashQuotas(v interface{}) int {
-	var buf bytes.Buffer
 	m := v.(map[string]interface{})
-	buf.WriteString(fmt.Sprintf("%s-", m["resource_name"].(string)))
-	return hashcode.String(buf.String())
+	return hashcode.String(fmt.Sprintf("%s-", m["resource_name"].(string)))
 }
 
 // hashResourceQuotas is a hash function to use with the "resource_quotas" set.
